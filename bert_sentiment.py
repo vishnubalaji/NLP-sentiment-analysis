@@ -4,30 +4,51 @@ import streamlit as st
 import pandas as pd
 import os
 
-auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
-auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
+ACCESS_TOKEN = '1350787725222318084-lLFaScpCxmeyTssKkq2ZfdTwoa0VIW'
+ACCESS_TOKEN_SECRET = '1JylTb0X1EDtei8z9kEORk2eMZaWvlu0uZpahwLHLEEsx'
+API_KEY = 'GoublMWhc7RbtsduCkZRwmbtM'
+API_KEY_SECRET = 'K3pypCMxTs6DuqBsq9xizra6PcYzHKdm15Iu1R6GYogtoNTyQx'
+
+auth = tw.OAuthHandler(API_KEY, API_KEY_SECRET)
+auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+
+# auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
+# auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
 api = tw.API(auth, wait_on_rate_limit=True)
 
 # By default downloads the distilbert-base-uncased-finetuned-sst-2-english model
 # Uses the DistilBERT architecture 
 classifier = pipeline('sentiment-analysis')
 
-st.title('Live Twitter Sentiment Analysis with Tweepy and HuggingFace Transformers')
-# st.markdown('This app uses tweepy to get tweets from twitter based on the input name/phrase. It then processes the tweets through HuggingFace transformers pipeline function for sentiment analysis. The resulting sentiments and corresponding tweets are then put in a dataframe for display which is what you see as result.')
-
 def run():
-    with st.form(key='input'):
-        search_words = st.text_input('Enter the name for which you want to know the sentiment')
-        number_of_tweets = st.number_input('Enter the number of latest tweets for which you want to know the sentiment(Maximum 50 tweets)', 0,50,10)
-        submit_button = st.form_submit_button(label = 'Submit')
+    st.title('Twitter Sentiment Analysis')
+    st.markdown('Fill the form')
+    with st.form(key='form_input'):
+
+        type_of_word = st.radio('Choose the type of word',['Trading','Universal'])
+        search_word = st.text_input('Enter the word')
+        number_of_tweets = st.number_input('Enter the number of latest tweets(Maximum 50 tweets)', min_value = 0, max_value = 50, value = 1)
+        date_since = st.date_input('Enter the date until when to fetch')
+        submit_button = st.form_submit_button(label = 'Fetch')
         
         if submit_button:
-            tweets = tw.Cursor(api.search_tweets,q=search_words,lang='en').items(number_of_tweets)
-            tweet_list = [i.text for i in tweets]
-            p = [i for i in classifier(tweet_list)]
-            q = [p[i]['label'] for i in range(len(p))]
-            df = pd.DataFrame(list(zip(tweet_list, q)),columns =['Latest '+str(number_of_tweets)+ 'Tweets'+' on '+search_words, 'sentiment'])
+            tweets = api.search_tweets(q=search_word, count = number_of_tweets, result_type='mixed', until = date_since, lang='en')
+            tweet_list = [tweets[i].text for i in range(number_of_tweets)]
+            tweet_location = [tweets[i].user.location for i in range(number_of_tweets)]
+            sentiment = [emotion for emotion in classifier(tweet_list)]
+
+            label_list = [emotion_list[i]['label'] for i in range(len(emotion_list))]
+            df = pd.DataFrame(
+                list(zip(tweet_list, emotion_list)),
+                columns =['Latest '+str(number_of_tweets)+ 'tweets'+' on '+search_words, 'sentiment']
+            )
             df
- 
+            # st.bar_chart(bar)
+
+            if type_of_word == 'Trading':
+                pass
+            else:
+                pass
+
 if __name__=='__main__':
     run()
