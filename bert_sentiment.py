@@ -35,7 +35,7 @@ def run():
             tweets = api.search_tweets(q=search_word, count = number_of_tweets, result_type='mixed', until = date_since, lang='en')
             tweet_list = [tweets[i].text for i in range(number_of_tweets)]
             tweet_location = [tweets[i].user.location for i in range(number_of_tweets)]
-            sentiment = [emotion for emotion in classifier(tweet_list)]
+            emotion_list = [emotion for emotion in classifier(tweet_list)]
 
             label_list = [emotion_list[i]['label'] for i in range(len(emotion_list))]
             df = pd.DataFrame(
@@ -52,4 +52,3 @@ def run():
 
 if __name__=='__main__':
     run()
-    st.write("GitHub VS Code check")
