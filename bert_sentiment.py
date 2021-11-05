@@ -40,7 +40,7 @@ def run():
             label_list = [emotion_list[i]['label'] for i in range(len(emotion_list))]
             df = pd.DataFrame(
                 list(zip(tweet_list, emotion_list)),
-                columns =['Latest '+str(number_of_tweets)+ 'tweets'+' on '+search_words, 'sentiment']
+                columns =['Latest '+str(number_of_tweets)+ 'tweets'+' on '+search_word, 'sentiment']
             )
             df
             # st.bar_chart(bar)
