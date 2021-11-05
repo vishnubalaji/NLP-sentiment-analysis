@@ -37,10 +37,13 @@ def run():
             tweet_location = [tweets[i].user.location for i in range(number_of_tweets)]
             emotion_list = [emotion for emotion in classifier(tweet_list)]
 
+            emotion_label = [emotion['label'] for emotion in emotion_list]
+            emotion_score = [emotion['score'] for emotion in emotion_list]
+
             label_list = [emotion_list[i]['label'] for i in range(len(emotion_list))]
             df = pd.DataFrame(
-                list(zip(tweet_list, emotion_list)),
-                columns =['Latest '+str(number_of_tweets)+ 'tweets'+' on '+search_word, 'sentiment']
+                list(zip(tweet_list, emotion_label, emotion_score)),
+                columns =['Latest '+str(number_of_tweets)+ ' tweets'+' on '+search_word, 'Sentiment', 'Score']
             )
             df
             # st.bar_chart(bar)
