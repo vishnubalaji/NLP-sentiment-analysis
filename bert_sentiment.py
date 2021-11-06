@@ -47,9 +47,12 @@ def run():
                 columns =['Latest '+str(number_of_tweets)+ ' tweets'+' on '+search_word, 'Sentiment', 'Score']
             )
             df
-            # st.bar_chart(emotion_label)
-            st.bar_chart(df['Sentiment'], use_container_width=True)
+            negative_count = (df['Sentiment'] == 'NEGATIVE').sum()
+            positive_count = (df['Sentiment'] == 'POSITIVE').sum()
 
+            negative_count
+            positive_count
+            
             if type_of_word == 'Trading':
                 pass
             else:
