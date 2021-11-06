@@ -48,7 +48,7 @@ def run():
             )
             df
             # st.bar_chart(emotion_label)
-            st.bar_chart(df['Sentiment'])
+            st.bar_chart(df['Sentiment'], use_container_width=True)
 
             if type_of_word == 'Trading':
                 pass
