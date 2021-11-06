@@ -53,7 +53,9 @@ def run():
 
             st.write(f'Negative count : {negative_count}    Positive count : {positive_count}')
             count = [i for i in range(0,51,10)]
+            fig = plt.figure()
             sns.barplot(x='Sentiment', y='Score', data=df, order=['POSITIVE','NEGATIVE'])
+            st.pyplot(fig)
 
             if type_of_word == 'Trading':
                 pass
