@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 ACCESS_TOKEN = '1350787725222318084-lLFaScpCxmeyTssKkq2ZfdTwoa0VIW'
 ACCESS_TOKEN_SECRET = '1JylTb0X1EDtei8z9kEORk2eMZaWvlu0uZpahwLHLEEsx'
@@ -50,9 +51,9 @@ def run():
             negative_count = (df['Sentiment'] == 'NEGATIVE').sum()
             positive_count = (df['Sentiment'] == 'POSITIVE').sum()
 
-            st.write(f'Negative count : {negative_count}')
-            st.write(f'Positive count : {positive_count}')
-            df.hist(column='Sentiment', bins=2)
+            st.write(f'Negative count : {negative_count} <-> Positive count : {positive_count}')
+            count = [i for i in range(0,51,10)]
+            sns.bar_plot(x='Sentiment', y=count, data=df)
 
             if type_of_word == 'Trading':
                 pass
