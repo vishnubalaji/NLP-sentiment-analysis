@@ -3,6 +3,7 @@ import tweepy as tw
 import streamlit as st
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
 
 ACCESS_TOKEN = '1350787725222318084-lLFaScpCxmeyTssKkq2ZfdTwoa0VIW'
 ACCESS_TOKEN_SECRET = '1JylTb0X1EDtei8z9kEORk2eMZaWvlu0uZpahwLHLEEsx'
@@ -46,7 +47,8 @@ def run():
                 columns =['Latest '+str(number_of_tweets)+ ' tweets'+' on '+search_word, 'Sentiment', 'Score']
             )
             df
-            st.bar_chart(emotion_label)
+            # st.bar_chart(emotion_label)
+            st.bar_chart(df['Sentiment'])
 
             if type_of_word == 'Trading':
                 pass
