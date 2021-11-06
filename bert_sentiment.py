@@ -6,16 +6,8 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-ACCESS_TOKEN = '1350787725222318084-lLFaScpCxmeyTssKkq2ZfdTwoa0VIW'
-ACCESS_TOKEN_SECRET = '1JylTb0X1EDtei8z9kEORk2eMZaWvlu0uZpahwLHLEEsx'
-API_KEY = 'GoublMWhc7RbtsduCkZRwmbtM'
-API_KEY_SECRET = 'K3pypCMxTs6DuqBsq9xizra6PcYzHKdm15Iu1R6GYogtoNTyQx'
-
-auth = tw.OAuthHandler(API_KEY, API_KEY_SECRET)
-auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-
-# auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
-# auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
+auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
+auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
 api = tw.API(auth, wait_on_rate_limit=True)
 
 # By default downloads the distilbert-base-uncased-finetuned-sst-2-english model
