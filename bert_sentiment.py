@@ -51,9 +51,9 @@ def run():
             negative_count = (df['Sentiment'] == 'NEGATIVE').sum()
             positive_count = (df['Sentiment'] == 'POSITIVE').sum()
 
-            st.write(f'Negative count : {negative_count} <-> Positive count : {positive_count}')
+            st.write(f'Negative count : {negative_count}    Positive count : {positive_count}')
             count = [i for i in range(0,51,10)]
-            sns.barplot(x='Sentiment', y=count, data=df)
+            sns.barplot(x='Sentiment', y='Score', data=df, order=['POSITIVE','NEGATIVE'])
 
             if type_of_word == 'Trading':
                 pass
