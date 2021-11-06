@@ -46,7 +46,7 @@ def run():
                 columns =['Latest '+str(number_of_tweets)+ ' tweets'+' on '+search_word, 'Sentiment', 'Score']
             )
             df
-            st.bar_chart(emotion_label.iloc[1])
+            st.bar_chart(emotion_label)
 
             if type_of_word == 'Trading':
                 pass
