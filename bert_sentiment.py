@@ -50,9 +50,10 @@ def run():
             negative_count = (df['Sentiment'] == 'NEGATIVE').sum()
             positive_count = (df['Sentiment'] == 'POSITIVE').sum()
 
-            negative_count
-            positive_count
-            
+            st.write(f'Negative count : {negative_count}')
+            st.write(f'Positive count : {positive_count}')
+            df.hist(column='Sentiment', bins=2)
+
             if type_of_word == 'Trading':
                 pass
             else:
