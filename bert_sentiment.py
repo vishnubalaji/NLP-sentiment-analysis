@@ -26,7 +26,7 @@ classifier = pipeline('sentiment-analysis')
 def home():
     home_page = st.sidebar.radio('Welcome to our project!', ['Twitter', 'Reddit'])
 
-    if my_page == 'Twitter':
+    if home_page == 'Twitter':
         twitter()
     elif my_page == 'Reddit':
         reddit()
