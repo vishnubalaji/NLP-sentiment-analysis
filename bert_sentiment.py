@@ -1,10 +1,19 @@
 from transformers import pipeline
 import tweepy as tw
+import praw
 import streamlit as st
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
 import seaborn as sns
+
+REDDIT_CLIENT_ID = os.environ['REDDIT_CLIENT_ID']
+REDDIT_CLIENT_SECRET = os.environ['REDDIT_CLIENT_SECRET']
+USER_AGENT = os.environ['USER_AGENT']
+USERNAME = os.environ['USERNAME']
+PASSWORD = os.environ['PASSWORD']
+
+reddit = praw.Reddit(REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, USER_AGENT, USERNAME, PASSWORD)
 
 auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
 auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
@@ -14,7 +23,19 @@ api = tw.API(auth, wait_on_rate_limit=True)
 # Uses the DistilBERT architecture 
 classifier = pipeline('sentiment-analysis')
 
-def run():
+def home():
+    home_page = st.sidebar.radio('Welcome to our project!', ['Twitter', 'Reddit'])
+
+    if my_page == 'Twitter':
+        twitter()
+    elif my_page == 'Reddit':
+        reddit()
+
+def reddit():
+    subreddit=reddit.subreddit('wallstreetbets')
+    st.write('Nothing here to show. Mind your business -_-')
+
+def twitter():
     st.title('Twitter Sentiment Analysis')
     st.markdown('Fill the form')
     with st.form(key='form_input'):
@@ -55,4 +76,4 @@ def run():
                 pass
 
 if __name__=='__main__':
-    run()
+    home()
