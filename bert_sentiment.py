@@ -28,7 +28,7 @@ def home():
 
     if home_page == 'Twitter':
         twitter()
-    elif my_page == 'Reddit':
+    elif home_page == 'Reddit':
         reddit()
 
 def reddit():
