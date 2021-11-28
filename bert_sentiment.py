@@ -13,7 +13,7 @@ USER_AGENT = os.environ['USER_AGENT']
 USERNAME = os.environ['USERNAME']
 PASSWORD = os.environ['PASSWORD']
 
-reddit = praw.Reddit(REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, USER_AGENT, USERNAME, PASSWORD)
+reddit = praw.Reddit(client_id = REDDIT_CLIENT_ID, client_secret = REDDIT_CLIENT_SECRET, user_agent = USER_AGENT, username = USERNAME, password = PASSWORD)
 
 auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
 auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
@@ -69,11 +69,6 @@ def twitter():
             fig = plt.figure(figsize=(10,7))
             sns.barplot(x='Sentiment', y='Score', data=df, order=['POSITIVE','NEGATIVE'])
             st.pyplot(fig)
-
-            if type_of_word == 'Trading':
-                pass
-            else:
-                pass
 
 if __name__=='__main__':
     home()
