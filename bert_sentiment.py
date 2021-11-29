@@ -39,8 +39,6 @@ def twitter():
     st.title('Twitter Sentiment Analysis')
     st.markdown('Fill the form')
     with st.form(key='form_input'):
-
-        type_of_word = st.radio('Choose the type of word',['Trading','Universal'])
         search_word = st.text_input('Enter the word')
         number_of_tweets = st.number_input('Enter the number of latest tweets(Maximum 50 tweets)', min_value = 0, max_value = 50, value = 1)
         date_since = st.date_input('Enter the date until when to fetch')
