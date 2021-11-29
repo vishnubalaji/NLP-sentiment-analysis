@@ -32,7 +32,7 @@ def home():
         reddit()
 
 def reddit():
-    subreddit=reddit.subreddit('wallstreetbets')
+    subreddit = reddit.get_subreddit('wallstreetbets')
     st.write('Nothing here to show. Mind your business -_-')
 
 def twitter():
