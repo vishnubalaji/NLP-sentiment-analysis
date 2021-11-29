@@ -33,7 +33,7 @@ def reddit():
     reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
     number_of_posts = st.number_input('Enter the number of latest posts(Maximum 50 posts)', min_value = 0, max_value = 50, value = 1)
     subreddit=reddit.subreddit('wallstreetbets').hot(limit=number_of_posts)
-    submission.comments.replace_more(limit=0)
+    #submission.comments.replace_more(limit=0)
     comments_list=[]
     for top_level_comments in submission.comments:
       comments_list.append(top_level_comments.body)
