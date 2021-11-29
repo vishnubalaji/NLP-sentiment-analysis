@@ -13,8 +13,6 @@ USERAGENT = os.environ['USER_AGENT']
 USERNAME = os.environ['USERNAME']
 PASSWORD = os.environ['PASSWORD']
 
-reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
-subred = reddit.subreddit('wallstreetbets')
 auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
 auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
 api = tw.API(auth, wait_on_rate_limit=True)
@@ -32,6 +30,8 @@ def home():
         reddit()
 
 def reddit():
+    reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
+    subred = reddit.subreddit('wallstreetbets')
     st.write('Nothing here to show. Mind your business -_-')
 
 def twitter():
