@@ -31,44 +31,47 @@ def home():
         reddit()
 
 def reddit():
-    number_of_posts=st.number_input('Enter the number of latest posts(Maximum 10 posts)', min_value = 0, max_value = 10, value = 1)
-    submit_button = st.form_submit_button(label = 'Fetch')
-    # st.write('Nothing here to show. Mind your business -_-')
-    if submit_button:
-        reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
-        subreddit=reddit.subreddit('wallstreetbets').hot(limit=number_of_posts)
-        #subroutine to get the comment id
-        id_list=[]
-        for i in subreddit:
-          id_list.append(i.id)
-        submission = reddit.submission(random.choice(id_list))
-        submission.comments.replace_more(limit=0)
-        comments_list=[]
-        for top_level_comments in submission.comments:
-          comments_list.append(top_level_comments.body)
-        #comments_list
-        #comments_list has 50+ comments, limiting to 15 for easy training of model.
-        comment_list=comments_list[1:21] #0th index is metadata, we dont want to confuse poor distilbert
-        
-        emotion_list = [emotion for emotion in classifier(comment_list)]
-        
-        emotion_label = [emotion['label'] for emotion in emotion_list]
-        emotion_score = [emotion['score'] for emotion in emotion_list]
+    st.title('Reddit Sentiment Analysis')
+    st.markdown('Fill the form')
+    with st.form(key='form_input'):
+        number_of_posts=st.number_input('Enter the number of latest posts(Maximum 10 posts)', min_value = 0, max_value = 10, value = 1)
+        submit_button = st.form_submit_button(label = 'Fetch')
+        # st.write('Nothing here to show. Mind your business -_-')
+        if submit_button:
+            reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
+            subreddit=reddit.subreddit('wallstreetbets').hot(limit=number_of_posts)
+            #subroutine to get the comment id
+            id_list=[]
+            for i in subreddit:
+              id_list.append(i.id)
+            submission = reddit.submission(random.choice(id_list))
+            submission.comments.replace_more(limit=0)
+            comments_list=[]
+            for top_level_comments in submission.comments:
+              comments_list.append(top_level_comments.body)
+            #comments_list
+            #comments_list has 50+ comments, limiting to 15 for easy training of model.
+            comment_list=comments_list[1:21] #0th index is metadata, we dont want to confuse poor distilbert
 
-        label_list = [emotion_list[i]['label'] for i in range(len(emotion_list))]
-        df = pd.DataFrame(
-            list(zip(tweet_list, emotion_label, emotion_score)),
-            columns =['Latest '+str(number_of_tweets)+ ' tweets'+' on '+search_word, 'Sentiment', 'Score']
-        )
-        df
-        negative_count = (df['Sentiment'] == 'NEGATIVE').sum()
-        positive_count = (df['Sentiment'] == 'POSITIVE').sum()
+            emotion_list = [emotion for emotion in classifier(comment_list)]
 
-        st.write(f'Negative count : {negative_count}    Positive count : {positive_count}')
-        count = [i for i in range(0,51,10)]
-        fig = plt.figure(figsize=(10,7))
-        sns.barplot(x='Sentiment', y='Score', data=df, order=['POSITIVE','NEGATIVE'])
-        st.pyplot(fig)
+            emotion_label = [emotion['label'] for emotion in emotion_list]
+            emotion_score = [emotion['score'] for emotion in emotion_list]
+
+            label_list = [emotion_list[i]['label'] for i in range(len(emotion_list))]
+            df = pd.DataFrame(
+                list(zip(tweet_list, emotion_label, emotion_score)),
+                columns =['Latest '+str(number_of_tweets)+ ' tweets'+' on '+search_word, 'Sentiment', 'Score']
+            )
+            df
+            negative_count = (df['Sentiment'] == 'NEGATIVE').sum()
+            positive_count = (df['Sentiment'] == 'POSITIVE').sum()
+
+            st.write(f'Negative count : {negative_count}    Positive count : {positive_count}')
+            count = [i for i in range(0,51,10)]
+            fig = plt.figure(figsize=(10,7))
+            sns.barplot(x='Sentiment', y='Score', data=df, order=['POSITIVE','NEGATIVE'])
+            st.pyplot(fig)
 
 def twitter():
     st.title('Twitter Sentiment Analysis')
