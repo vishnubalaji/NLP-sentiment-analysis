@@ -6,6 +6,7 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 import seaborn as sns
+import random
 
 REDDITCLIENTID = os.environ['REDDIT_CLIENT_ID']
 REDDITCLIENTSECRET = os.environ['REDDIT_CLIENT_SECRET']
@@ -30,17 +31,12 @@ def home():
         reddit()
 
 def reddit():
-    reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
-    number_of_posts = st.number_input('Enter the number of latest posts(Maximum 50 posts)', min_value = 0, max_value = 50, value = 1)
-    subreddit=reddit.subreddit('wallstreetbets').hot(limit=number_of_posts)
-    #submission.comments.replace_more(limit=0)
-    comments_list=[]
-    for top_level_comments in submission.comments:
-      comments_list.append(top_level_comments.body)
-    #comments_list
+    number_of_posts=st.number_input('Enter the number of latest posts(Maximum 10 posts)', min_value = 0, max_value = 10, value = 1)
     submit_button = st.form_submit_button(label = 'Fetch')
     # st.write('Nothing here to show. Mind your business -_-')
     if submit_button:
+        reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
+        subreddit=reddit.subreddit('wallstreetbets').hot(limit=number_of_posts)
         #subroutine to get the comment id
         id_list=[]
         for i in subreddit:
