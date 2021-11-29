@@ -7,14 +7,14 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-REDDIT_CLIENT_ID = os.environ['REDDIT_CLIENT_ID']
-REDDIT_CLIENT_SECRET = os.environ['REDDIT_CLIENT_SECRET']
-USER_AGENT = os.environ['USER_AGENT']
+REDDITCLIENTID = os.environ['REDDIT_CLIENT_ID']
+REDDITCLIENTSECRET = os.environ['REDDIT_CLIENT_SECRET']
+USERAGENT = os.environ['USER_AGENT']
 USERNAME = os.environ['USERNAME']
 PASSWORD = os.environ['PASSWORD']
 
-reddit = praw.Reddit(client_id = REDDIT_CLIENT_ID, client_secret = REDDIT_CLIENT_SECRET, user_agent = USER_AGENT, username = USERNAME, password = PASSWORD)
-
+reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
+subred = reddit.subreddit('wallstreetbets')
 auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
 auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
 api = tw.API(auth, wait_on_rate_limit=True)
@@ -32,7 +32,6 @@ def home():
         reddit()
 
 def reddit():
-    subreddit = reddit.subreddit('wallstreetbets')
     st.write('Nothing here to show. Mind your business -_-')
 
 def twitter():
