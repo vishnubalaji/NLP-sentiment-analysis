@@ -61,7 +61,7 @@ def reddit():
             label_list = [emotion_list[i]['label'] for i in range(len(emotion_list))]
             df = pd.DataFrame(
                 list(zip(comment_list, emotion_label, emotion_score)),
-                columns =['Latest '+str(number_of_posts)+ ' posts'+' on '+search_word, 'Sentiment', 'Score']
+                columns =['Latest '+str(number_of_posts)+ ' posts'+' on WallStreetBets', 'Sentiment', 'Score']
             )
             df
             negative_count = (df['Sentiment'] == 'NEGATIVE').sum()
