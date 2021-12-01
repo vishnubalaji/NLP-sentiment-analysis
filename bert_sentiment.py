@@ -35,7 +35,7 @@ def reddit():
     st.markdown('Fill the form')
     with st.form(key='form_input'):
         st.write('Welcome to Reddit Sentiment Analyser. Please click the Fetch button to analyse comments of the top post as of now')
-        number_of_posts=st.number_input('Enter the number of latest posts(Maximum 10 posts)', min_value = 0, max_value = 10, value = 1)
+        #number_of_posts=st.number_input('Enter the number of latest posts(Maximum 10 posts)', min_value = 0, max_value = 10, value = 1)
         submit_button = st.form_submit_button(label = 'Fetch')
         #st.write('Nothing here to show. Mind your business -_-')
         if submit_button:
@@ -45,7 +45,7 @@ def reddit():
             id_list=[]
             for i in subreddit:
               id_list.append(i.id)
-            post_id=random.choice(id_list)
+            post_id=id_list[0]
             submission = reddit.submission(post_id)
             post_title=submission.title
             submission.comments.replace_more(limit=0)
@@ -53,8 +53,8 @@ def reddit():
             for top_level_comments in submission.comments:
               comments_list.append(top_level_comments.body)
             #comments_list
-            #comments_list has 50+ comments, limiting to 15 for easy training of model.
-            comment_list=comments_list[1:21] #0th index is metadata, we dont want to confuse poor distilbert
+            #comments_list has 50+ comments, limiting to 25 for easy training of model.
+            comment_list=comments_list[1:25] #0th index is metadata, we dont want to confuse poor distilbert
 
             emotion_list = [emotion for emotion in classifier(comment_list)]
 
@@ -64,7 +64,7 @@ def reddit():
             label_list = [emotion_list[i]['label'] for i in range(len(emotion_list))]
             df = pd.DataFrame(
                 list(zip(comment_list, emotion_label, emotion_score)),
-                columns =['Latest '+str(number_of_posts)+ ' posts'+' on '+post_title, 'Sentiment', 'Score']
+                columns =['Latest post on '+post_title, 'Sentiment', 'Score']
             )
             df
             negative_count = (df['Sentiment'] == 'NEGATIVE').sum()
