@@ -7,6 +7,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 import random
+import requests
 
 REDDITCLIENTID = os.environ['REDDIT_CLIENT_ID']
 REDDITCLIENTSECRET = os.environ['REDDIT_CLIENT_SECRET']
@@ -23,12 +24,27 @@ api = tw.API(auth, wait_on_rate_limit=True)
 classifier = pipeline('sentiment-analysis')
 
 def home():
-    home_page = st.sidebar.radio('Welcome to our project!', ['Twitter', 'Reddit'])
+    home_page = st.sidebar.radio('Welcome to our project!', ['Twitter', 'Reddit','AlphaVantage'])
 
     if home_page == 'Twitter':
         twitter()
     elif home_page == 'Reddit':
         reddit()
+    elif home_page == 'AlphaVantage':
+        alpha()
+
+def alpha():
+    st.title('AlphaVantage API stock data analysis')
+    st.markdown('Fill the below details')
+    with st.form(key='form_input'):
+        st.write('Welcome to AlphaVantage API stock data analysis')
+        keyword=st.text_input('Please enter the name of the company you wish to get financial stock data for:')
+        submit_button = st.form_submit_button(label = 'Fetch')
+        aux = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords='+keyword+'&apikey=ZNJRZJFE5TTR9JT7'
+        if submit_button:
+            av=requests.get(aux)
+            data=av.json()
+            st.write(data)
 
 def reddit():
     st.title('Reddit Sentiment Analysis')
