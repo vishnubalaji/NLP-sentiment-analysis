@@ -34,19 +34,20 @@ def reddit():
     st.title('Reddit Sentiment Analysis')
     st.markdown('Fill the form')
     with st.form(key='form_input'):
-        number_of_posts=st.number_input('Enter the number of latest posts(Maximum 10 posts)', min_value = 0, max_value = 10, value = 1)
+        #number_of_posts=st.number_input('Enter the number of latest posts(Maximum 10 posts)', min_value = 0, max_value = 10, value = 1)
+        st.write('Welcome to Reddit Sentiment Analyser. Please click the Fetch button to analyse comments of the top post as of now')
         submit_button = st.form_submit_button(label = 'Fetch')
         # st.write('Nothing here to show. Mind your business -_-')
         if submit_button:
             reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
-            subreddit=reddit.subreddit('wallstreetbets').hot(limit=number_of_posts)
+            subreddit=reddit.subreddit('wallstreetbets').hot(limit=1)
             #subroutine to get the comment id
-            id_list=[]
-            for i in subreddit:
-              id_list.append(i.id)
-            post_id=random.choice(id_list)
-            submission = reddit.submission(post_id)
-            post_title=submission.title
+            #id_list=[]
+            #for i in subreddit:
+            #  id_list.append(i.id)
+            #post_id=random.choice(id_list)
+            submission = reddit.submission(subreddit.id)
+            post_title=submission.title()
             submission.comments.replace_more(limit=0)
             comments_list=[]
             for top_level_comments in submission.comments:
@@ -105,7 +106,7 @@ def twitter():
             st.write(f'Negative count : {negative_count}    Positive count : {positive_count}')
             count = [i for i in range(0,51,10)]
             fig = plt.figure(figsize=(10,7))
-            sns.barplot(x='Sentiment', y='Score', data=df, order=['POSITIVE','NEGATIVE'])
+            sns.barplot(x='Sentiment', y='Score', data=df, order=['NEGATIVE','POSITIVE'])
             st.pyplot(fig)
 
 if __name__=='__main__':
