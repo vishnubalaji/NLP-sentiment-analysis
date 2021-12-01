@@ -47,7 +47,7 @@ def reddit():
             #  id_list.append(i.id)
             #post_id=random.choice(id_list)
             submission = reddit.submission(subreddit.id)
-            post_title=submission.title()
+            post_title=submission.title
             submission.comments.replace_more(limit=0)
             comments_list=[]
             for top_level_comments in submission.comments:
