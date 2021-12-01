@@ -73,7 +73,7 @@ def reddit():
             st.write(f'Negative count : {negative_count}    Positive count : {positive_count}')
             count = [i for i in range(0,51,10)]
             fig = plt.figure(figsize=(10,7))
-            sns.barplot(x='Sentiment', y='Score', data=df, order=['POSITIVE','NEGATIVE'])
+            sns.barplot(x='Sentiment', y='Score', data=df, order=['NEGATIVE','POSITIVE'])
             st.pyplot(fig)
 
 def twitter():
