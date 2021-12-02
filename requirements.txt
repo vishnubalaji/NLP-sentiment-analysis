@@ -6,3 +6,4 @@ torch
 matplotlib
 seaborn
 praw
+alpha_vantage
