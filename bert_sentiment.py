@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import random
 import requests
-import pandas_datareader as pdr
+#import pandas_datareader as pdr
 from pandas import json_normalize
 from alpha_vantage.timeseries import TimeSeries
 
