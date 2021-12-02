@@ -54,7 +54,8 @@ def alpha():
         # df = ts.read()
         # df.index = pd.to_datetime(df.index, format='%Y-%m-%d')
         api_key = 'ZNJRZJFE5TTR9JT7'
-        date = '2021-11-22'
+        #date = '2021-11-22'
+        date = st.date_input('Enter the date for which you would like the stock change analysis')
         #confirm to
         ts = TimeSeries(key = api_key, output_format= 'pandas')
         data = ts.get_daily(keyword)
