@@ -54,6 +54,7 @@ def alpha():
         # ts = pdr.av.time_series.AVTimeSeriesReader(keyword, api_key='ZNJRZJFE5TTR9JT7')
         # df = ts.read()
         # df.index = pd.to_datetime(df.index, format='%Y-%m-%d')
+        date=str(date)
         st.write(f'On Date {date}')
         api_key = 'ZNJRZJFE5TTR9JT7'
         #date = '2021-11-22'
