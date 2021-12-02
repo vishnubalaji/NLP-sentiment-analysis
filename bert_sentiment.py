@@ -42,6 +42,7 @@ def alpha():
     with st.form(key='form_input'):
         st.write('Welcome to AlphaVantage API stock data analysis')
         keyword=st.text_input('Please enter the name of the company you wish to get financial stock data for:')
+        date = st.date_input('Enter the date for which you would like the stock change analysis')
         #date = st.date_input('Enter the date until when to fetch')
         submit_button = st.form_submit_button(label = 'Fetch')
         # aux = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords='+keyword+'&apikey=ZNJRZJFE5TTR9JT7'
@@ -55,7 +56,6 @@ def alpha():
         # df.index = pd.to_datetime(df.index, format='%Y-%m-%d')
         api_key = 'ZNJRZJFE5TTR9JT7'
         #date = '2021-11-22'
-        date = st.date_input('Enter the date for which you would like the stock change analysis')
         #confirm to
         ts = TimeSeries(key = api_key, output_format= 'pandas')
         data = ts.get_daily(keyword)
