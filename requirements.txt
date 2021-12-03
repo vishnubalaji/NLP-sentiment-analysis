@@ -7,3 +7,6 @@ matplotlib
 seaborn
 praw
 alpha_vantage
+joblib
+altair
+sklearn
