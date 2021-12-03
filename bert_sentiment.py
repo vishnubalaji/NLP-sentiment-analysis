@@ -163,13 +163,13 @@ def twitter():
                 columns =['Latest '+str(number_of_tweets)+ ' tweets'+' on '+search_word, 'Emotion', 'Score', "Sentiment"]
             )
             df
-            negative_count = (df['Sentiment'] == 'NEGATIVE').sum()
-            positive_count = (df['Sentiment'] == 'POSITIVE').sum()
+            negative_count = (df['Emotion'] == 'NEGATIVE').sum()
+            positive_count = (df['Emotion'] == 'POSITIVE').sum()
 
             st.write(f'Negative count : {negative_count}    Positive count : {positive_count}')
             count = [i for i in range(0,51,10)]
             fig = plt.figure(figsize=(10,7))
-            sns.barplot(x='Sentiment', y='Score', data=df, order=['NEGATIVE','POSITIVE'])
+            sns.barplot(x='Emotion', y='Score', data=df, order=['NEGATIVE','POSITIVE'])
             st.pyplot(fig)
 
             st.success("Prediction Probability")
