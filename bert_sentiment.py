@@ -30,15 +30,15 @@ def get_prediction_proba(docx):
 emotions_emoji_dict = {"anger":"😠","disgust":"🤮", "fear":"😨😱", "happy":"🤗", "joy":"😂", "neutral":"😐", "sad":"😔", "sadness":"😔", "shame":"😳", "surprise":"😮"}
 
 
-# REDDITCLIENTID = os.environ['REDDIT_CLIENT_ID']
-# REDDITCLIENTSECRET = os.environ['REDDIT_CLIENT_SECRET']
-# USERAGENT = os.environ['USER_AGENT']
-# USERNAME = os.environ['USERNAME']
-# PASSWORD = os.environ['PASSWORD']
+REDDITCLIENTID = os.environ['REDDIT_CLIENT_ID']
+REDDITCLIENTSECRET = os.environ['REDDIT_CLIENT_SECRET']
+USERAGENT = os.environ['USER_AGENT']
+USERNAME = os.environ['USERNAME']
+PASSWORD = os.environ['PASSWORD']
 
-# auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
-# auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
-# api = tw.API(auth, wait_on_rate_limit=True)
+auth = tw.OAuthHandler(os.environ['API_KEY'], os.environ['API_KEY_SECRET'])
+auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
+api = tw.API(auth, wait_on_rate_limit=True)
 
 # By default downloads the distilbert-base-uncased-finetuned-sst-2-english model
 # Uses the DistilBERT architecture 
@@ -96,7 +96,7 @@ def reddit():
         submit_button = st.form_submit_button(label = 'Fetch')
         #st.write('Nothing here to show. Mind your business -_-')
         if submit_button:
-            # reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
+            reddit = praw.Reddit(client_id = REDDITCLIENTID, client_secret = REDDITCLIENTSECRET, user_agent = USERAGENT, username = USERNAME, password = PASSWORD)
             subreddit=reddit.subreddit('wallstreetbets').hot(limit=1)
             #subroutine to get the comment id
             id_list=[]
@@ -143,10 +143,9 @@ def twitter():
         submit_button = st.form_submit_button(label = 'Fetch')
         
         if submit_button:
-            # tweets = api.search_tweets(q=search_word, count = number_of_tweets, result_type='mixed', until = date_since, lang='en')
-            # tweet_list = [tweets[i].text for i in range(number_of_tweets)]
-            tweet_list = ["Sage Act upgrade on my to do list for tommorow.","ON THE WAY TO MY HOMEGIRL BABY FUNERAL!!! MAN I HATE FUNERALS THIS REALLY SHOWS ME HOW BLESSED I AM "," Such an eye ! The true hazel eye-and so brilliant ! Regular features , open countenance , with a complexion , Oh ! What a bloom of full health , and such a pretty height and size ; such a firm and upright figure ! There is health , not merely in her bloom , but in her air , her head , her glance . One hears sometimes of a child being ' the picture of health ' ; now , she always gives me the idea of being the complete picture of grown-up health . She is loveliness itself . ","@Iluvmiasantos ugh babe.. hugggzzz for u .!  babe naamazed nga ako e babe e, despite nega's mas pinaramdam at fil ko ang ","I'm expecting an extremely important phonecall any minute now #terror #opportunity"," .Couldnt wait to see them live. If missing them in NH7 wasnt painful enuf, Suraj 's performing his last gig in delhi. ","maken Tip 2: Stop op een moment dat je het hele project wel ziet zitten. Nu dus. #derestkomtlaterwel","En dan krijg je ff een cadeautje van een tweep #melike"," @1116am Drummer Boy bij op verzoek van @BiemOosterhof . @frankcornet : welke uitvoering, van wie?","The bull tossed the effigy out of their hands and became very infuriated . ","People hide their behind a #fake smile.","For once in his life , Leopold must have been truly happy : his hopes and prayers for his beloved son seemed at last to have come to fruition . ","Against the assault of laughter nothing can stand. ~ Mark Twain #emotionalcourage"]
-            # tweet_location = [tweets[i].user.location for i in range(number_of_tweets)]
+            tweets = api.search_tweets(q=search_word, count = number_of_tweets, result_type='mixed', until = date_since, lang='en')
+            tweet_list = [tweets[i].text for i in range(number_of_tweets)]
+            tweet_location = [tweets[i].user.location for i in range(number_of_tweets)]
             emotion_list = [emotion for emotion in classifier(tweet_list)]
             sentiment_list = [predict_emotions(tweet) for tweet in tweet_list]
             sentiment_proba_list = [get_prediction_proba(tweet) for tweet in tweet_list]
