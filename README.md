@@ -3,6 +3,7 @@
 This repository contains the development code to be submitted as a project for Big Data Analytics coursework(SWE2011) and Foundations of Data Analytics coursework(CSE3505).
 
 # Tech Stack
+
 <ul>
   <li> <a href="https://huggingface.co/"> HuggingFace Transformers </a> </li>
   <li> <a href="https://streamlit.io/"> Streamlit </a> </li>
@@ -10,6 +11,7 @@ This repository contains the development code to be submitted as a project for B
 </ul>
 
 # Team members
+
 <ul>
   <li> <a href="https://github.com/kai-subramanian">  Kailash Subramanian </a> </li>
   <li> <a href="https://github.com/balajiramanan7">  Balaji Chandramouli </a> </li>
@@ -26,3 +28,15 @@ The project💻 is deployed🚀 on streamlit and is accessible at <a href="https
   <li> <a href="https://public.tableau.com/app/profile/kailash7930/viz/Twitter_Sentiment_Analysis_16384551406210/TweetsbyUser">  Viz 1 </a> </li>
   <li> <a href="https://public.tableau.com/app/profile/kailash7930/viz/Twitter_Sentiment_Analysis_16384551406210/Sheet12">  Viz 2 </a> </li>
 </ul>
+
+# Block diagram
+
+<!-- ![block-diagram]() -->
+
+# UML diagrams
+
+### Class diagram
+
+
+### Sequence diagram
+
